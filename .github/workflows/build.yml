@@ -26,8 +26,11 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Generate App Icons
-      run: npx @capacitor/assets generate --path download.png
+    - name: Prepare App Icon
+      run: |
+        mkdir -p assets
+        cp icons/icon-512.png assets/icon.png
+        npx @capacitor/assets generate
 
     - name: Sync Capacitor Android
       run: npx cap sync android
