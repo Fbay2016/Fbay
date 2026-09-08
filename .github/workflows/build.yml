@@ -32,7 +32,7 @@ jobs:
     - name: Build Android App Bundle (AAB)
       run: |
         cd android
-        ./gradlew bundleRelease
+        ./gradlew bundleRelease --no-daemon
 
     - name: Upload AAB Artifact
       uses: actions/upload-artifact@v4
