@@ -1,0 +1,9 @@
+{
+  "appId": "com.fbay.app",
+  "appName": "Fbay",
+  "webDir": "www",
+  "server": {
+    "url": "https://fbay.42web.io/fbay",
+    "cleartext": true
+  }
+}

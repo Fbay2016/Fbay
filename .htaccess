@@ -1,0 +1,46 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.fbay\.42web\.io [NC]
+RewriteRule ^(.*)$ https://fbay.42web.io/$1 [L,R=301]
+
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+ErrorDocument 403 /403.html
+ErrorDocument 400 /400.html
+ErrorDocument 401 /401.html
+
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+DirectoryIndex index.html index.php
+Options -Indexes
+
+# --- IMPORTANT: PWA files ko rewrite rules se bachane ke liye ---
+RewriteRule ^manifest\.json$ - [L]
+RewriteRule ^sw\.js$ - [L]
+
+# Remove ?i=1 query string
+RewriteCond %{QUERY_STRING} ^i=1$ [NC]
+RewriteRule ^(.*)$ /$1? [R=301,L]
+
+# Rewrite .html files to URL without extension (only if .php does not exist)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php !-f
+RewriteRule ^([a-zA-Z0-9_/]+)$ $1.html [L]
+
+# Serve .php internally without showing .php in URL
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+<FilesMatch ".(jpg|jpeg|png|gif|js|css|pdf)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+</FilesMatch>
+
+# Correct MIME type for Manifest on Apache servers
+<IfModule mod_mime.c>
+    AddType application/manifest+json .json
+</IfModule>
