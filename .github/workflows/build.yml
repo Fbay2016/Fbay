@@ -26,8 +26,8 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Update Capacitor Android
-      run: npx cap update android
+    - name: Sync Capacitor Android
+      run: npx cap sync android
 
     - name: Build Android App Bundle (AAB)
       run: |
