@@ -35,13 +35,13 @@ jobs:
     - name: Sync Capacitor Android
       run: npx cap sync android
 
-    - name: Build Android APK
+    - name: Build Android App Bundle (AAB)
       run: |
         cd android
-        ./gradlew assembleDebug --no-daemon
+        ./gradlew bundleRelease --no-daemon
 
-    - name: Upload APK Artifact
+    - name: Upload AAB Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: app-debug
-        path: android/app/build/outputs/apk/debug/**/*.apk
+        name: app-release
+        path: android/app/build/outputs/bundle/**/*.aab
