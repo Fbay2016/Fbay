@@ -26,6 +26,9 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
+    - name: Generate App Icons
+      run: npx @capacitor/assets generate --iconPath download.png --ios --android
+
     - name: Sync Capacitor Android
       run: npx cap sync android
 
